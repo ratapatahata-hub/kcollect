@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Show {
+  id              Int      @id @default(autoincrement())
+  tmdbId          Int      @unique
+  title           String
+  type            String   @default("Drama") 
+  categories      String?  
+  overview        String?
+  posterPath      String?
+  rating          Float?
+  network         String?  // e.g., "tvN", "Disney+"
+  broadcastPeriod String?  // e.g., "2026-Aug-03 to 2026-Sep-08"
+  airTime         String?  // e.g., "Monday & Tuesday 20:45 KST"
+  status          String?  @default("Completed")
+  seasons         Season[]
+  actors          Actor[]  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Actor {
+  id          Int      @id @default(autoincrement())
+  tmdbId      Int      @unique
+  name        String
+  profilePath String?
+  shows       Show[]   
+}
+
+model Season {
+  id           Int      @id @default(autoincrement())
+  seasonNumber Int
+  showId       Int
+  show         Show      @relation(fields: [showId], references: [id], onDelete: Cascade)
+  episodes     Episode[]
+}
+
+model Episode {
+  id            Int      @id @default(autoincrement())
+  episodeNumber Int
+  title         String
+  seasonId      Int
+  season        Season   @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  links         Link[]
+}
+
+model Link {
+  id        Int      @id @default(autoincrement())
+  quality   String   
+  url       String   
+  episodeId Int
+  episode   Episode  @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+}

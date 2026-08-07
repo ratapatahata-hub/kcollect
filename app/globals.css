@@ -1,0 +1,4 @@
+@import "tailwindcss";
+
+/* This makes your Light/Dark mode button work in Tailwind V4! */
+@variant dark (&:is(.dark *));
