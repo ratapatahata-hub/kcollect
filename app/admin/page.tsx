@@ -15,7 +15,7 @@ export default function AdminDashboard() {
 
   // Manual Add State
   const [manualForm, setManualForm] = useState({
-    title: '', type: 'Drama', categories: '', posterPath: '', status: 'Completed', rating: '0', overview: ''
+    title: '', type: 'Drama', categories: '', posterPath: '', status: 'Completed', rating: '0', overview: '', episodeCount: ''
   });
 
   // Link inputs state
@@ -75,7 +75,7 @@ export default function AdminDashboard() {
       const data = await response.json();
       if (response.ok) {
         setStatus(`✅ Success! Created: ${data.show.title}`);
-        setManualForm({ title: '', type: 'Drama', categories: '', posterPath: '', status: 'Completed', rating: '0', overview: '' });
+        setManualForm({ title: '', type: 'Drama', categories: '', posterPath: '', status: 'Completed', rating: '0', overview: '', episodeCount: '' });
         fetchShows();
       } else {
         setStatus(`❌ Error: ${data.error}`);
@@ -194,6 +194,10 @@ export default function AdminDashboard() {
                 <div>
                   <label className="block text-xs mb-1 text-gray-400 font-bold">Rating (Out of 10)</label>
                   <input type="number" step="0.1" value={manualForm.rating} onChange={e => setManualForm({...manualForm, rating: e.target.value})} className="w-full p-2 rounded bg-gray-700 border border-gray-600 text-sm focus:border-[#1dbf73] outline-none"/>
+                </div>
+                <div>
+                  <label className="block text-xs mb-1 text-gray-400 font-bold">Episode Count</label>
+                  <input type="number" value={manualForm.episodeCount} onChange={e => setManualForm({...manualForm, episodeCount: e.target.value})} className="w-full p-2 rounded bg-gray-700 border border-gray-600 text-sm focus:border-[#1dbf73] outline-none" placeholder="e.g., 16"/>
                 </div>
               </div>
               <div>
