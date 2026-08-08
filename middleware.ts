@@ -20,7 +20,7 @@ export function middleware(req: NextRequest) {
     const pass = auth[1];
 
     // YOUR SECRET USERNAME AND PASSWORD (Change these if you want!)
-    if (user === 'admin' && pass === 'drama2026') {
+    if (user === 'U64Ffxdt$du' && pass === 'R4hbde7YGye36#heu*hjcYui70') {
       return NextResponse.next(); // Let them in
     }
 
